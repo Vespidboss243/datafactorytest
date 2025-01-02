@@ -1,0 +1,84 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "datafactoryjdbrdp203"
+		},
+		"datalaketestjdbr_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'datalaketestjdbr'"
+		},
+		"dp203synapsejdbr_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'dp203synapsejdbr'"
+		},
+		"datalaketestjdbr_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://datalaketestjdbr.dfs.core.windows.net/"
+		},
+		"dp203synapsejdbr_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "dp203synapsejdbr.sql.azuresynapse.net"
+		},
+		"dp203synapsejdbr_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "datapool"
+		},
+		"dp203synapsejdbr_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "vespidboss"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "datafactoryjdbrdp203_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"datalaketestjdbr_accountKey": {
+						"value": "[parameters('datalaketestjdbr_accountKey')]"
+					},
+					"dp203synapsejdbr_password": {
+						"value": "[parameters('dp203synapsejdbr_password')]"
+					},
+					"datalaketestjdbr_properties_typeProperties_url": {
+						"value": "[parameters('datalaketestjdbr_properties_typeProperties_url')]"
+					},
+					"dp203synapsejdbr_properties_typeProperties_server": {
+						"value": "[parameters('dp203synapsejdbr_properties_typeProperties_server')]"
+					},
+					"dp203synapsejdbr_properties_typeProperties_database": {
+						"value": "[parameters('dp203synapsejdbr_properties_typeProperties_database')]"
+					},
+					"dp203synapsejdbr_properties_typeProperties_userName": {
+						"value": "[parameters('dp203synapsejdbr_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
